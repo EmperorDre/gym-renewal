@@ -120,9 +120,11 @@
 
 function payWithPaystack(plan, amount) {
 
-    let memberId = document.getElementById("memberId").value;
+    let firstName = document.getElementById("firstName").value;
 
-    let email = document.getElementById("email").value;
+let lastName = document.getElementById("lastName").value;
+
+let email = document.getElementById("email").value;
 
     let handler = PaystackPop.setup({
 
@@ -148,17 +150,23 @@ function payWithPaystack(plan, amount) {
 
                 body: JSON.stringify({
 
-                    email: email,
+    first_name: firstName,
 
-                    subscription: plan,
+    last_name: lastName,
 
-                    amount: amount,
+    email: email,
 
-                    payment_status: 'Paid',
+    subscription: plan,
 
-                    source: 'Paystack',
+    amount: amount,
 
-                    transaction_id: response.reference
+    payment_status: 'Paid',
+
+    source: 'Paystack',
+
+    transaction_id: response.reference
+
+})
 
                 })
 
