@@ -94,99 +94,62 @@
 
     <br><br>
 
-    <button onclick="payWithPaystack('1 Month', 10000)">
-        1 Month - ₦10,000
-    </button>
+    <button onclick="goToPayment('Monthly')">
+1 Month - ₦10,000
+</button>
 
-    <br><br>
+<button onclick="goToPayment('3 Months')">
+3 Months - ₦25,000
+</button>
 
-    <button onclick="payWithPaystack('3 Months', 25000)">
-        3 Months - ₦25,000
-    </button>
-
-    <br><br>
-
-    <button onclick="payWithPaystack('6 Months', 50000)">
-        6 Months - ₦50,000
-    </button>
+<button onclick="goToPayment('6 Months')">
+6 Months - ₦50,000
+</button>
 
 </div>
 
 </div>
-
-<script src="https://js.paystack.co/v1/inline.js"></script>
 
 <script>
 
-function payWithPaystack(plan, amount) {
+function goToPayment(plan) {
 
     let firstName = document.getElementById("firstName").value;
 
-let lastName = document.getElementById("lastName").value;
+    let lastName = document.getElementById("lastName").value;
 
-let email = document.getElementById("email").value;
+    let email = document.getElementById("email").value;
 
-    let handler = PaystackPop.setup({
+    localStorage.setItem("first_name", firstName);
 
-       key: 'pk_test_d55ae7cd5421b1ea5cea848d88a4c5698909bed1',
+    localStorage.setItem("last_name", lastName);
 
-        email: email,
+    localStorage.setItem("email", email);
 
-        amount: amount * 100,
+    localStorage.setItem("subscription", plan);
 
-        currency: 'NGN',
+    if(plan === "Monthly") {
 
-        ref: 'PS-' + Date.now(),
+        window.location.href =
+        "https://paystack.shop/pay/dregym";
 
-        callback: function(response) {
+    }
 
-            fetch('https://dhamielarey002.app.n8n.cloud/webhook-test/gym-renewal', {
+    else if(plan === "3 Months") {
 
-                method: 'POST',
+        window.location.href =
+        "https://paystack.shop/pay/dregym2";
 
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+    }
 
-                body: JSON.stringify({
+    else if(plan === "6 Months") {
 
-    first_name: firstName,
+        window.location.href =
+        "https://paystack.shop/pay/dregym3";
 
-    last_name: lastName,
-
-    email: email,
-
-    subscription: plan,
-
-    amount: amount,
-
-    payment_status: 'Paid',
-
-    source: 'Paystack',
-
-    transaction_id: response.reference
-
-})
-
-                })
-
-            });
-
-            window.location.href =
-            "https://emperordre.github.io/gym-renewal/success.html";
-
-        },
-
-        onClose: function() {
-
-            alert('Transaction cancelled');
-
-        }
-
-    });
-
-    handler.openIframe();
+    }
 
 }
 
 </script>
+
