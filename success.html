@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Renewal Successful</title>
+
+<style>
+
+body{
+  margin:0;
+  background:#0f0f0f;
+  font-family:Arial,sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  color:white;
+}
+
+.card{
+  background:#1a1a1a;
+  padding:40px;
+  border-radius:16px;
+  width:350px;
+  text-align:center;
+}
+
+h1{
+  color:#00c853;
+  margin-bottom:15px;
+}
+
+p{
+  color:#999;
+  line-height:1.6;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Payment Successful ✅</h1>
+
+<p>
+Your gym membership renewal was completed successfully.
+</p>
+
+</div>
+
+<script>
+
+fetch('https://dhamielarey002.app.n8n.cloud/webhook/gym-renewal', {
+
+method:'POST',
+
+headers:{
+'Content-Type':'application/json'
+},
+
+body:JSON.stringify({
+
+payment_status:'Paid',
+source:'Paystack'
+
+})
+
+});
+
+</script>
+
+</body>
+</html>
