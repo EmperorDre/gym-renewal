@@ -104,25 +104,21 @@ function payWithPaystack() {
 
   let plan = document.getElementById("plan").value;
 
-  fetch('https://dhamielarey002.app.n8n.cloud/webhook-test/gym-renewal',
+  fetch('https://dhamielarey002.app.n8n.cloud/webhook-test/gym-renewal', {
 
-    method: 'POST',
+  method: 'POST',
 
-    headers: {
-      'Content-Type': 'application/json'
-    },
+  headers: {
+    'Content-Type': 'application/json'
+  },
 
-    body: JSON.stringify({
+  body: JSON.stringify({
 
-      member_id: memberId,
-      email: email,
-      subscription: plan,
-      payment_status: "Paid"
+    member_id: memberId,
+    email: email,
+    subscription: plan,
+    payment_status: "Paid"
 
-    })
+  })
 
-  });
-
-  alert("Renewal Successful");
-
-}
+});
