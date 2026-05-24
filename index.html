@@ -82,43 +82,103 @@
     placeholder="Email Address"
   />
 
-  <select id="plan">
-    <option value="Monthly">Monthly - ₦10,000</option>
-    <option value="Quarterly">Quarterly - ₦25,000</option>
-    <option value="Yearly">Yearly - ₦90,000</option>
-  </select>
+  <input
+type="email"
+id="memberEmail"
+placeholder="Enter your email address"
+/>
 
-  <button onclick="payWithPaystack()">
-    Renew Now
-  </button>
+<br><br>
+
+<button onclick="payWithPaystack('Monthly', 10000)">
+
+1 Month - ₦10,000
+
+</button>
+
+<br><br>
+
+<button onclick="payWithPaystack('3 Months', 25000)">
+
+3 Months - ₦25,000
+
+</button>
+
+<br><br>
+
+<button onclick="payWithPaystack('6 Months', 50000)">
+
+6 Months - ₦50,000
+
+</button>
 
 </div>
 
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
 <script>
 
-function payWithPaystack() {
+function payWithPaystack(plan, amount) {
 
-  let memberId = document.getElementById("memberId").value;
+    let memberId = document.getElementById("memberId").value;
 
-  let email = document.getElementById("email").value;
+    let email = document.getElementById("email").value;
 
-  let plan = document.getElementById("plan").value;
+    let handler = PaystackPop.setup({
 
-  fetch('https://dhamielarey002.app.n8n.cloud/webhook-test/gym-renewal', {
+        key: 'pk_test_d55ae7cd5421b1ea5cea848d88a4c5698909bed1',
 
-  method: 'POST',
+        email: email,
 
-  headers: {
-    'Content-Type': 'application/json'
-  },
+        amount: amount * 100,
 
-  body: JSON.stringify({
+        currency: 'NGN',
 
-    member_id: memberId,
-    email: email,
-    subscription: plan,
-    payment_status: "Paid"
+        ref: 'PS-' + Date.now(),
 
-  })
+        callback: function(response) {
 
-});
+            fetch('https://dhamielarey002.app.n8n.cloud/webhook-test/gym-renewal', {
+
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify({
+
+                    email: email,
+
+                    subscription: plan,
+
+                    amount: amount,
+
+                    payment_status: 'Paid',
+
+                    source: 'Paystack',
+
+                    transaction_id: response.reference
+
+                })
+
+            });
+
+            window.location.href =
+            "https://emperordre.github.io/gym-renewal/success.html";
+
+        },
+
+        onClose: function() {
+
+            alert('Transaction cancelled');
+
+        }
+
+    });
+
+    handler.openIframe();
+
+}
+
+</script>
