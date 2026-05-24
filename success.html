@@ -74,5 +74,59 @@ source:'Paystack'
 
 </script>
 
+<body>
+
+<div class="card">
+
+<h1>Renewal Successful</h1>
+
+<p>Your gym membership has been renewed successfully.</p>
+
+<hr>
+
+<p><strong>Name:</strong>
+<span id="memberName"></span></p>
+
+<p><strong>Email:</strong>
+<span id="memberEmail"></span></p>
+
+<p><strong>Plan:</strong>
+<span id="memberPlan"></span></p>
+
+<p><strong>Amount Paid:</strong>
+<span id="memberAmount"></span></p>
+
+<p><strong>Reference:</strong>
+<span id="paymentReference"></span></p>
+
+</div>
+
+<script>
+
+const firstName = localStorage.getItem("first_name");
+const lastName = localStorage.getItem("last_name");
+const email = localStorage.getItem("email");
+const subscription = localStorage.getItem("subscription");
+const amount = localStorage.getItem("amount");
+const reference = localStorage.getItem("reference");
+
+document.getElementById("memberName").innerText =
+firstName + " " + lastName;
+
+document.getElementById("memberEmail").innerText =
+email;
+
+document.getElementById("memberPlan").innerText =
+subscription;
+
+document.getElementById("memberAmount").innerText =
+"₦" + amount;
+
+document.getElementById("paymentReference").innerText =
+reference;
+
+</script>
+
 </body>
+
 </html>
