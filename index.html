@@ -98,66 +98,31 @@
 
 function payWithPaystack() {
 
-  let email = document.getElementById("email").value;
-
   let memberId = document.getElementById("memberId").value;
+
+  let email = document.getElementById("email").value;
 
   let plan = document.getElementById("plan").value;
 
-  let amount = 10000;
+  fetch('YOUR_N8N_WEBHOOK_URL', {
 
-  if (plan === "Quarterly") amount = 25000;
+    method: 'POST',
 
-  if (plan === "Yearly") amount = 90000;
+    headers: {
+      'Content-Type': 'application/json'
+    },
 
-  let handler = PaystackPop.setup({
+    body: JSON.stringify({
 
-    key: 'pk_test_d55ae7cd5421b1ea5cea848d88a4c5698909bed1',
-
-    email: email,
-
-    amount: amount * 100,
-
-    currency: "NGN",
-
-    metadata: {
       member_id: memberId,
-      subscription: plan
-    },
+      email: email,
+      subscription: plan,
+      payment_status: "Paid"
 
-    callback: function(response) {
-
-      fetch('YOUR_N8N_WEBHOOK_URL', {
-
-        method: 'POST',
-
-        headers: {
-          'Content-Type': 'application/json'
-        },
-
-        body: JSON.stringify({
-          reference: response.reference,
-          member_id: memberId,
-          email: email,
-          subscription: plan
-        })
-
-      });
-
-      alert("Payment Successful!");
-
-    },
-
-    onClose: function() {
-      alert("Transaction Cancelled");
-    }
+    })
 
   });
 
-  handler.openIframe();
+  alert("Renewal Successful");
+
 }
-
-</script>
-
-</body>
-</html>
